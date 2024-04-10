@@ -12,7 +12,15 @@ class Counter extends React.Component {
     }
 
     increment() {
-        this.setState({ counter: this.state.counter + 1 })
+        let { id } = this.props
+        // this.setState({ counter: this.state.counter + 1 })
+
+        this.setState(prevstate => ({ counter: prevstate.counter + 1 }), () => {
+            // Estado actualizado
+            console.log(`Contador ${id}` , this.state.counter) 
+        })
+        // Estado desactualizado ( por asincronísmo)
+        //console.log(`Contador ${id}` , this.state.counter) 
     }
 
     decrement() {
@@ -51,3 +59,15 @@ export default Counter
 
 // state
 // Dentro de la propiedad "state" se almacenan todas las props de un objeto la cual queremos que se conserven. Todo lo que se modifique en el state, dispara nuevamente al render
+
+// Tambien puede recibir un objeto que reciba lo que necesite modificar
+
+// Muchas veces procesos asincronicos, pueden afectar variables dento del componente, lo que podria causar una "falsa lectura" de valores. Para ellos podemos utilizar un "prevstate", que nos asegura la fiabilidad de la lectura de ese valor.
+
+// increment() {
+//      this.setState(prevstate => ({ counter: prevstate.counter + 1 }))
+// }
+
+
+// Uplifting 
+// Metodo empleado para enviar información de los elementos hijos a los padres
